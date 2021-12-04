@@ -1,0 +1,64 @@
+html{
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*,*::after,*::before{
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    font-size: 1rem;
+}
+
+body{
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+}
+
+
+img,video{
+    height: 100%;
+    width: auto;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    /*color: white;   colocar si todos los enlaces son del mismo color*/
+}
+
+input,
+button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+h1{ font-size: 2rem; }
+
+/*
+
+h2{ font-size: 1.5rem; }
+
+h3{ 
+    font-size: 1rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+::placeholder{
+    color: #f1f1f1;
+}*/
