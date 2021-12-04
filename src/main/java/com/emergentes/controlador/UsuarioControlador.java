@@ -68,6 +68,7 @@ public class UsuarioControlador extends HttpServlet {
         int idRol = Integer.parseInt(request.getParameter("cbRol"));
         
         Usuario usuario = new Usuario();
+        usuario.setId(id);
         usuario.setCi(ci);
         usuario.setNombres(nombres);
         usuario.setApellidoPaterno(apellidoPaterno);
