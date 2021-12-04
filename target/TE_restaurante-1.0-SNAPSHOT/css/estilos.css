@@ -206,6 +206,10 @@
     display: flex;
 }
 
+.contenido__titulo svg{
+    fill: white;
+}
+
 .contenido__cuerpo{
     background-color: white;
     padding: 10px 20px 20px 20px;
@@ -242,7 +246,8 @@ form{
 }
 
 form input[type='text'],
-form input[type='email']{
+form input[type='email'],
+form input[type='number']{
     padding: 5px;
     border: 1px solid #757575;
     background-color: #e1e1e1;
@@ -299,7 +304,6 @@ td {
 
 .inf-mesas{
     background-color: #4caf50;
-    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -370,7 +374,8 @@ td {
 }
 
 .rows input[type='text'],
-.rows input[type='email']{
+.rows input[type='email'],
+.rows input[type='number']{
     padding: 5px;
 }
 
@@ -480,11 +485,56 @@ td {
     align-items: center;
 }
 
-.opciones-control-mesas button{
+.opciones-control-mesas button,
+.botones{
     padding: 10px;
     border-radius: 5px;
     background-color: #03a9f4;
     color: white;
     margin: 5px;
     width: 80%;
+}
+
+.form_edit-nuevo{
+    display: grid;
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fill,minmax(150px,auto));
+    grid-gap: 10px;
+}
+
+select{
+    background-color: #e1e1e1;
+    outline: none;
+    padding: 5px;
+}
+
+.cliente .rows:first-child,
+.cliente .rows:nth-child(4),
+.productos .rows:nth-child(3){
+    grid-column: span 4;
+}
+
+.cliente .rows:nth-child(2),
+.cliente .rows:nth-child(3),
+.productos .rows:nth-child(4),
+.mesas .rows:first-child,
+.mesas .rows:nth-child(2),
+.mesas .rows:nth-child(3),
+.mesas .rows:nth-child(4)
+{
+    grid-column: span 2;
+}
+
+.cliente .rows:nth-child(5),
+.productos .rows:nth-child(2)
+{
+    grid-column: span 3;
+}
+
+.botton--cerrar{
+    background-color: #e1e1e1;
+    color: black;
+    border: 1px solid #757575;
 }

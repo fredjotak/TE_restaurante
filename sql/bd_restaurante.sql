@@ -138,8 +138,10 @@ CREATE TABLE servicio_temporal (
 	id_servicio_temporal INT AUTO_INCREMENT,
 	hora TIME DEFAULT CURRENT_TIME,
 	id_producto VARCHAR(9),
+	id_mesa INT,
 	cantidad INT DEFAULT 0,
 	comentario VARCHAR(100),
-	CONSTRAINT pk_id_detalle_servicio PRIMARY KEY(id_detalle_servicio),
-	CONSTRAINT fk_id_producto FOREIGN KEY(id_producto) REFERENCES producto(id_producto)
+	CONSTRAINT pk_id_servicio_temporal PRIMARY KEY(id_servicio_temporal),
+	CONSTRAINT fk_id_mesa_ser_tmp FOREIGN KEY(id_mesa) REFERENCES mesas(id_mesa),
+	CONSTRAINT fk_id_producto_ser_tmp FOREIGN KEY(id_producto) REFERENCES producto(id_producto)
 ) ENGINE=innoDB DEFAULT CHARSET='utf8mb4';

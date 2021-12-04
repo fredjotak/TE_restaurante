@@ -2,10 +2,12 @@ package com.emergentes.controlador;
 
 import com.emergentes.dao.MesaDAO;
 import com.emergentes.dao.MesaDAOimpl;
+import com.emergentes.dao.UsuarioDAO;
+import com.emergentes.dao.UsuarioDAOimpl;
 import com.emergentes.modelo.Mesa;
+import com.emergentes.modelo.Usuario;
 import com.emergentes.utiles.Logueado;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,14 +28,18 @@ public class MesaControlador extends HttpServlet {
             int id;
             
             String action = (request.getParameter("action")!=null)? request.getParameter("action"): "view";
+            UsuarioDAO usuarioDAO = new UsuarioDAOimpl();
+            List<Usuario> listaEncargados = usuarioDAO.getAll();
             if(action.equals("add")){
                 request.setAttribute("mesa", mesa);
-                request.getRequestDispatcher("frmMesa").forward(request, response);
+                request.setAttribute("listaEncargados", listaEncargados);
+                request.getRequestDispatcher("frmMesa.jsp").forward(request, response);
             } else if(action.equals("edit")){
                 id = Integer.parseInt(request.getParameter("id"));
                 mesa = dao.getById(id);
                 request.setAttribute("mesa", mesa);
-                request.getRequestDispatcher("frmMesa").forward(request, response);
+                request.setAttribute("listaEncargados", listaEncargados);
+                request.getRequestDispatcher("frmMesa.jsp").forward(request, response);
             } else if(action.equals("change")){
                 id = Integer.parseInt(request.getParameter("id"));
                 mesa = dao.getById(id);
@@ -65,15 +71,16 @@ public class MesaControlador extends HttpServlet {
         Logueado log = new Logueado(request, response);
         MesaDAO dao = new MesaDAOimpl();
         int id = Integer.parseInt(request.getParameter("hdnId"));
-        String nombre = request.getParameter("txt");
-        int idEncargado = Integer.parseInt(request.getParameter("cb"));
-        boolean ocupada = Integer.parseInt(request.getParameter("rb"))==1;
+        String nombre = request.getParameter("txtNombre");
+        int idEncargado = Integer.parseInt(request.getParameter("cbIdEncargado"));
+        boolean ocupada = Integer.parseInt(request.getParameter("rbOcupada"))==1;
         
         Mesa mesa = new Mesa();
         mesa.setNombre(nombre);
         mesa.setEncargado(idEncargado);
         mesa.setOcupada(ocupada);
         
+        System.out.println("Esasas "+idEncargado);
         if(id==0){ // Nuevo Mesa
             try {
             dao.insert(mesa);
@@ -87,5 +94,6 @@ public class MesaControlador extends HttpServlet {
                 System.out.println("Error al actualizar Mesa: "+ ex.getMessage());
             }
         }
+        response.sendRedirect("MesaControlador");
     }
 }

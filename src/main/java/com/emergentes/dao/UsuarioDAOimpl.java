@@ -34,7 +34,7 @@ public class UsuarioDAOimpl extends ConexionDB implements UsuarioDAO{
     public void update(Usuario usuario) throws Exception {
         try {
             this.conectar();
-            String sql = "UPDATE usuario SET ci = ?,  nombres = ?, apellido_paterno = ?, apellido_materno = ?, id_rol = ? WHERE id_usuario = ?";
+            String sql = "UPDATE usuario SET ci = ?, nombres = ?, apellido_paterno = ?, apellido_materno = ?, id_rol = ? WHERE id_usuario = ?";
             PreparedStatement ps = this.conn.prepareStatement(sql);
             ps.setInt(1, usuario.getCi());
             ps.setString(2, usuario.getNombres());
@@ -82,6 +82,7 @@ public class UsuarioDAOimpl extends ConexionDB implements UsuarioDAO{
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 usuario.setId(rs.getInt("id_usuario"));
+                usuario.setCi(rs.getInt("ci"));
                 usuario.setNombres(rs.getString("nombres"));
                 usuario.setApellidoPaterno(rs.getString("apellido_paterno"));
                 usuario.setApellidoMaterno(rs.getString("apellido_materno"));

@@ -1,14 +1,14 @@
 package com.emergentes.controlador;
 
+import com.emergentes.dao.RolDAO;
+import com.emergentes.dao.RolDAOimpl;
 import com.emergentes.dao.UsuarioDAO;
 import com.emergentes.dao.UsuarioDAOimpl;
+import com.emergentes.modelo.Rol;
 import com.emergentes.modelo.Usuario;
 import com.emergentes.utiles.Logueado;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,15 +27,20 @@ public class UsuarioControlador extends HttpServlet {
             int id;
             Usuario usuario = new Usuario();
             
+            RolDAO rolDAO = new RolDAOimpl();
+            List<Rol> listaRol = rolDAO.getAll();
+            
             String action = (request.getParameter("action")!=null)? request.getParameter("action"): "view";
             if(action.equals("add")){
                 request.setAttribute("usuario", usuario);
-                request.getRequestDispatcher("frmUsuario").forward(request, response);
+                request.setAttribute("listaRol", listaRol);
+                request.getRequestDispatcher("frmUsuario.jsp").forward(request, response);
             } else if(action.equals("edit")){
                 id = Integer.parseInt(request.getParameter("id"));
                 usuario = dao.getById(id);
                 request.setAttribute("usuario", usuario);
-                request.getRequestDispatcher("frmUsuario").forward(request, response);
+                request.setAttribute("listaRol", listaRol);
+                request.getRequestDispatcher("frmUsuario.jsp").forward(request, response);
             } else if(action.equals("delete")){
                 id = Integer.parseInt(request.getParameter("id"));
                 dao.delete(id);
@@ -56,11 +61,11 @@ public class UsuarioControlador extends HttpServlet {
         Logueado log = new Logueado(request, response);
         UsuarioDAO dao = new UsuarioDAOimpl();
         int id = Integer.parseInt(request.getParameter("hdnId"));
-        int ci = Integer.parseInt(request.getParameter(""));
-        String nombres = request.getParameter("");
-        String apellidoPaterno = request.getParameter("");
-        String apellidoMaterno = request.getParameter("");
-        int idRol = Integer.parseInt(request.getParameter(""));
+        int ci = Integer.parseInt(request.getParameter("nroCI"));
+        String nombres = request.getParameter("txtNombres");
+        String apellidoPaterno = request.getParameter("txtApellidoPaterno");
+        String apellidoMaterno = request.getParameter("txtApellidoMaterno");
+        int idRol = Integer.parseInt(request.getParameter("cbRol"));
         
         Usuario usuario = new Usuario();
         usuario.setCi(ci);
@@ -82,5 +87,6 @@ public class UsuarioControlador extends HttpServlet {
                 System.out.println("Error al actualizar en Usuario: "+ ex.getMessage());
             }
         }
+        response.sendRedirect("UsuarioControlador");
     }
 }

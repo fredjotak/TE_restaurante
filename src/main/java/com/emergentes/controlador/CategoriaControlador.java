@@ -27,12 +27,12 @@ public class CategoriaControlador extends HttpServlet {
             String action = (request.getParameter("action")!=null)? request.getParameter("action"): "view";
             if(action.equals("add")){
                 request.setAttribute("categoria", categoria);
-                request.getRequestDispatcher("frmCategoria").forward(request, response);
+                request.getRequestDispatcher("frmCategoria.jsp").forward(request, response);
             } else if(action.equals("edit")){
                 id = Integer.parseInt(request.getParameter("id"));
                 categoria = dao.getById(id);
                 request.setAttribute("categoria", categoria);
-                request.getRequestDispatcher("frmCategoria").forward(request, response);
+                request.getRequestDispatcher("frmCategoria.jsp").forward(request, response);
             } else if(action.equals("delete")){
                 id = Integer.parseInt(request.getParameter("id"));
                 dao.delete(id);
@@ -53,10 +53,13 @@ public class CategoriaControlador extends HttpServlet {
         Logueado log = new Logueado(request, response);
         CategoriaDAO dao = new CategoriaDAOimpl();
         int id = Integer.parseInt(request.getParameter("hdnId"));
-        String nombre = request.getParameter("txt");
-        String tipo = request.getParameter("txt");
+        String nombre = request.getParameter("txtNombre");
+        String tipo = request.getParameter("txtTipo");
         
         Categoria categoria = new Categoria();
+        categoria.setId(id);
+        categoria.setNombre(nombre);
+        categoria.setTipo(tipo);
         
         if(id==0){ // Nuevo Categoria
             try {
@@ -71,5 +74,6 @@ public class CategoriaControlador extends HttpServlet {
                 System.out.println("Error al actualizar Categoria: "+ ex.getMessage());
             }
         }
+        response.sendRedirect("CategoriaControlador");
     }
 }

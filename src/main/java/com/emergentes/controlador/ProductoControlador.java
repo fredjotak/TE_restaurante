@@ -1,11 +1,14 @@
 package com.emergentes.controlador;
 
+import com.emergentes.dao.CategoriaDAO;
+import com.emergentes.dao.CategoriaDAOimpl;
 import com.emergentes.dao.ProductoDAO;
 import com.emergentes.dao.ProductoDAOimpl;
+import com.emergentes.modelo.Categoria;
 import com.emergentes.modelo.Producto;
 import com.emergentes.utiles.Logueado;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,13 +30,19 @@ public class ProductoControlador extends HttpServlet {
             
             String action = (request.getParameter("action")!=null)? request.getParameter("action"): "view";
             if(action.equals("add")){
+                CategoriaDAO catDao = new CategoriaDAOimpl();
+                List<Categoria> listaCategoria = catDao.getAll();
+                request.setAttribute("listaCategoria", listaCategoria);
                 request.setAttribute("producto", producto);
-                request.getRequestDispatcher("frmProducto").forward(request, response);
+                request.getRequestDispatcher("frmProducto.jsp").forward(request, response);
             } else if(action.equals("edit")){
+                CategoriaDAO catDao = new CategoriaDAOimpl();
                 id = request.getParameter("id");
                 producto = dao.getById(id);
                 request.setAttribute("producto", producto);
-                request.getRequestDispatcher("frmProducto").forward(request, response);
+                List<Categoria> listaCategoria = catDao.getAll();
+                request.setAttribute("listaCategoria", listaCategoria);
+                request.getRequestDispatcher("frmProducto.jsp").forward(request, response);
             } else if(action.equals("delete")){
                 id = request.getParameter("id");
                 dao.delete(id);
@@ -52,5 +61,31 @@ public class ProductoControlador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Logueado log = new Logueado(request, response);
+        ProductoDAO dao = new ProductoDAOimpl();
+        String id = request.getParameter("hdnId");
+        String nombre = request.getParameter("txtNombre");
+        int idCategoria = Integer.parseInt(request.getParameter("cbIdCategoria"));
+        Float precio = Float.parseFloat(request.getParameter("nroPrecio"));
+        
+        Producto producto = new Producto();
+        producto.setId(id);
+        producto.setNombre(nombre);
+        producto.setIdCategoria(idCategoria);
+        producto.setPrecio(precio);
+        
+        if(id.equals("")){ // Nuevo Producto
+            try {
+            dao.insert(producto);
+            } catch (Exception ex) {
+                System.out.println("Error al insertar en Producto: "+ ex.getMessage());
+            }
+        } else { // Edición de Usuario
+            try {
+            dao.update(producto);
+            } catch (Exception ex) {
+                System.out.println("Error al actualizar en Producto: "+ ex.getMessage());
+            }
+        }
+        response.sendRedirect("ProductoControlador");
     }
 }
