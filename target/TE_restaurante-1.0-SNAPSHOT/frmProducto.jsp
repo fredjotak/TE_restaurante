@@ -81,7 +81,7 @@
                                 <a href="ProductoControlador" class="botones botton--cerrar">Cerrar</a>
                             </div>
                             <div class="rows">
-                                <input class="botones" type="submit" value="Enviar">
+                                <input class="botones" type="submit" value='${(producto.id.equals(""))? "Registrar": "Actualizar"}'>
                             </div>
                         </form>
                     </div>

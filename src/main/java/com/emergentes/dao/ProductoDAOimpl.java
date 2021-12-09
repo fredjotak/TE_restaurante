@@ -32,13 +32,12 @@ public class ProductoDAOimpl extends ConexionDB implements ProductoDAO{
     public void update(Producto producto) throws Exception {
         try {
             this.conectar();
-            String sql = "UPDTAE producto SET nombre = ?, precio = ?, id_categoria = ? WHERE id_producto = ?";
+            String sql = "UPDATE producto SET nombre = ?, precio = ?, id_categoria = ? WHERE id_producto = ?";
             PreparedStatement ps = this.conn.prepareStatement(sql);
             ps.setString(1, producto.getNombre());
             ps.setFloat(2, producto.getPrecio());
             ps.setInt(3, producto.getIdCategoria());
             ps.setString(4, producto.getId());
-            
             ps.executeUpdate();
             ps.close();
         } catch (Exception e) {

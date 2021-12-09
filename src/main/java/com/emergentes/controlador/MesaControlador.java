@@ -76,20 +76,20 @@ public class MesaControlador extends HttpServlet {
         boolean ocupada = Integer.parseInt(request.getParameter("rbOcupada"))==1;
         
         Mesa mesa = new Mesa();
+        mesa.setId(id);
         mesa.setNombre(nombre);
         mesa.setEncargado(idEncargado);
         mesa.setOcupada(ocupada);
         
-        System.out.println("Esasas "+idEncargado);
         if(id==0){ // Nuevo Mesa
             try {
-            dao.insert(mesa);
+                dao.insert(mesa);
             } catch (Exception ex) {
                 System.out.println("Error al insertar Mesa: "+ ex.getMessage());
             }
         } else { // Edición de Mesa
             try {
-            dao.update(mesa);
+                dao.update(mesa);
             } catch (Exception ex) {
                 System.out.println("Error al actualizar Mesa: "+ ex.getMessage());
             }

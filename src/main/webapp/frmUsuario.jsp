@@ -74,7 +74,7 @@
                                 <a href="UsuarioControlador" class="botones botton--cerrar">Cerrar</a>
                             </div>
                             <div class="rows">
-                                <input class="botones" type="submit" value="Enviar">
+                                <input class="botones" type="submit" value='${(usuario.id==0)? "Registrar": "Actualizar"}'>
                             </div>
                         </form>
                     </div>
