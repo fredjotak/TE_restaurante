@@ -7,6 +7,7 @@ import com.emergentes.dao.ProductoDAOimpl;
 import com.emergentes.modelo.Categoria;
 import com.emergentes.modelo.Producto;
 import com.emergentes.utiles.Logueado;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,18 @@ public class ProductoControlador extends HttpServlet {
                 List<Producto> listaProductos = dao.getAll();
                 request.setAttribute("listaProductos", listaProductos);
                 request.getRequestDispatcher("productos.jsp").forward(request, response);
+            } else if(action.equals("search")){
+                String variableBuscar = request.getParameter("vp");
+                List<Producto> listaProductos = new ArrayList<Producto>();
+                try {
+                    listaProductos = dao.getFilterNombre(variableBuscar.trim());
+                } catch (Exception e) {
+                    System.out.println("Error al buscar en productos");
+                }
+                String json = new Gson().toJson(listaProductos);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
             System.out.println("Error en ProductoControlador GET: "+e.getMessage());

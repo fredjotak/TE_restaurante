@@ -153,4 +153,31 @@ public class MesaDAOimpl extends ConexionDB implements MesaDAO{
         }
         return lista;
     }
+
+    @Override
+    public List<Mesa> getFilterNombre(String texto) throws Exception {
+        List<Mesa> lista = new ArrayList<Mesa>();
+        try {
+            this.conectar();
+            String sql = "SELECT id_mesa, nombre, encargado, ocupada FROM mesas WHERE nombre LIKE '%"+ texto +"%';";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Mesa mesa = new Mesa();
+                mesa.setId(rs.getInt("id_mesa"));
+                mesa.setNombre(rs.getString("nombre"));
+                mesa.setEncargado(rs.getInt("encargado"));
+                mesa.setOcupada(rs.getInt("ocupada")==1);
+                lista.add(mesa);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return lista;
+    }
 }

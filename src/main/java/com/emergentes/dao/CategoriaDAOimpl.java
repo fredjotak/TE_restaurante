@@ -113,4 +113,30 @@ public class CategoriaDAOimpl extends ConexionDB implements CategoriaDAO{
         }
         return lista;
     }
+
+    @Override
+    public List<Categoria> getFilterNombre(String texto) throws Exception {
+        List<Categoria> lista = new ArrayList<Categoria>();
+        try {
+            this.conectar();
+            String sql = "SELECT id_categoria, nombre, tipo FROM categoria WHERE nombre LIKE '%"+texto+"%'";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Categoria categoria = new Categoria();
+                categoria.setId(rs.getInt("id_categoria"));
+                categoria.setNombre(rs.getString("nombre"));
+                categoria.setTipo(rs.getString("tipo"));
+                lista.add(categoria);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return lista;
+    }
 }

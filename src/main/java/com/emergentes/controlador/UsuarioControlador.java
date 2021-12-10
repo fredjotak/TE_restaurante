@@ -8,12 +8,15 @@ import com.emergentes.modelo.Rol;
 import com.emergentes.modelo.Usuario;
 import com.emergentes.utiles.Logueado;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @WebServlet(name = "UsuarioControlador", urlPatterns = {"/UsuarioControlador"})
 public class UsuarioControlador extends HttpServlet {
@@ -31,6 +34,7 @@ public class UsuarioControlador extends HttpServlet {
             List<Rol> listaRol = rolDAO.getAll();
             
             String action = (request.getParameter("action")!=null)? request.getParameter("action"): "view";
+            System.out.println("opcion es "+ action);
             if(action.equals("add")){
                 request.setAttribute("usuario", usuario);
                 request.setAttribute("listaRol", listaRol);
@@ -49,9 +53,24 @@ public class UsuarioControlador extends HttpServlet {
                 List<Usuario> listaUsuarios = dao.getAll();
                 request.setAttribute("listaUsuarios", listaUsuarios);
                 request.getRequestDispatcher("usuarios.jsp").forward(request, response);
+            } else if(action.equals("search")){
+                String variableBuscar = request.getParameter("v");
+                List<Usuario> listaUsuarios = new ArrayList<Usuario>();
+                try {
+                    //System.out.println("loser");
+                    listaUsuarios = dao.getAllFilterCiNombres(variableBuscar.trim());
+                } catch (Exception e) {
+                    System.out.println("Error al consultar usuarios");
+                }
+                String json = new Gson().toJson(listaUsuarios);
+                //System.out.println("JSON>>"+json);
+                //System.out.println("Convirtio el primero");
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
-            System.out.println("Error GET Usuario: "+e.getMessage());
+            System.out.println("Error GET Usuario: "+e.getMessage()+e.toString()+"____"+e.getCause()+"___"+e.getClass());
         }
     }
 

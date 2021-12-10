@@ -7,7 +7,9 @@ import com.emergentes.dao.UsuarioDAOimpl;
 import com.emergentes.modelo.Mesa;
 import com.emergentes.modelo.Usuario;
 import com.emergentes.utiles.Logueado;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,6 +61,18 @@ public class MesaControlador extends HttpServlet {
                 List<Mesa> listaMesas = dao.getAll();
                 request.setAttribute("listaMesas", listaMesas);
                 request.getRequestDispatcher("mesas.jsp").forward(request, response);
+            } else if(action.equals("search")){
+                String variableBuscar = request.getParameter("vm");
+                List<Mesa> listaMesas = new ArrayList<Mesa>();
+                try {
+                    listaMesas = dao.getFilterNombre(variableBuscar.trim());
+                } catch (Exception e) {
+                    System.out.println("Error al buscar en mesas");
+                }
+                String json = new Gson().toJson(listaMesas);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
             System.out.println("Error en MesaControlador GET: "+e.getMessage());

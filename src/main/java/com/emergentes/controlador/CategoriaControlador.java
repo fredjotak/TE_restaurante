@@ -4,7 +4,9 @@ import com.emergentes.dao.CategoriaDAO;
 import com.emergentes.dao.CategoriaDAOimpl;
 import com.emergentes.modelo.Categoria;
 import com.emergentes.utiles.Logueado;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +43,18 @@ public class CategoriaControlador extends HttpServlet {
                 List<Categoria> listaCategorias = dao.getAll();
                 request.setAttribute("listaCategorias", listaCategorias);
                 request.getRequestDispatcher("categorias.jsp").forward(request, response);
+            } else if(action.equals("search")){
+                String variableBuscar = request.getParameter("vc");
+                List<Categoria> listaCategorias = new ArrayList<Categoria>();
+                try {
+                    listaCategorias = dao.getFilterNombre(variableBuscar.trim());
+                } catch (Exception e) {
+                    System.out.println("Error al buscar en categoria");
+                }
+                String json = new Gson().toJson(listaCategorias);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
             System.out.println("Error en CategoriaControlador GET: "+e.getMessage());

@@ -115,4 +115,30 @@ public class ProductoDAOimpl extends ConexionDB implements ProductoDAO{
         }
         return lista;
     }
+
+    @Override
+    public List<Producto> getFilterNombre(String texto) throws Exception {
+        List<Producto> lista = new ArrayList<Producto>();
+        try {
+            this.conectar();
+            String sql = "SELECT id_producto, nombre, precio, id_categoria FROM producto WHERE nombre LIKE '%"+texto+"%';";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Producto producto = new Producto();
+                producto.setId(rs.getString("id_producto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecio(rs.getFloat("precio"));
+                lista.add(producto);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return lista;
+    }
 }

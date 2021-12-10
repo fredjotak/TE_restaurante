@@ -12,3 +12,9 @@ FROM servicio s LEFT JOIN mesas m ON(s.id_mesa=m.id_mesa) LEFT JOIN usuario ON(i
 -- detalle servicio
 SELECT id_detalle_servicio, id_servicio, hora, d.id_producto, nombre, cantidad, precio, subtotal, comentario, estado
 FROM detalle_servicio d JOIN producto p ON(d.id_producto = p.id_producto) WHERE id_servicio = 1;
+
+
+-- buscar por nombre 
+SELECT id_usuario, ci, nombres, apellido_paterno, apellido_materno, usuario, u.id_rol, r.nombre nombre_rol
+FROM usuario u LEFT JOIN rol r ON(u.id_rol=r.id_rol)
+WHERE ci LIKE '%45%';

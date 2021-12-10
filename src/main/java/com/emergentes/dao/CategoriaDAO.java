@@ -9,4 +9,5 @@ public interface CategoriaDAO {
     public void delete(int id) throws Exception;
     public Categoria getById(int id) throws Exception;
     public List<Categoria> getAll() throws Exception;
+    public List<Categoria> getFilterNombre(String texto) throws Exception;
 }

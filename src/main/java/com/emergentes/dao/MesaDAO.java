@@ -11,4 +11,5 @@ public interface MesaDAO {
     public void desocupar(int id) throws Exception;
     public Mesa getById(int id) throws Exception;
     public List<Mesa> getAll() throws Exception;
+    public List<Mesa> getFilterNombre(String texto) throws Exception;
 }

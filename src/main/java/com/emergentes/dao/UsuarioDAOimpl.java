@@ -131,4 +131,40 @@ public class UsuarioDAOimpl extends ConexionDB implements UsuarioDAO{
         }
         return lista;
     }
+
+    @Override
+    public List<Usuario> getAllFilterCiNombres(String texto) throws Exception {
+        List<Usuario> lista = new ArrayList<Usuario>();
+        try {
+            this.conectar();
+            String sql = "SELECT id_usuario, ci, nombres, apellido_paterno, apellido_materno, usuario, u.id_rol, r.nombre nombre_rol\n" +
+"FROM usuario u LEFT JOIN rol r ON(u.id_rol=r.id_rol)\n" +
+"WHERE ci LIKE '%"+texto+"%' OR nombres LIKE '%"+texto+"%';";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            //ps.setString(1, texto);
+            
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id_usuario"));
+                usuario.setCi(rs.getInt("ci"));
+                usuario.setNombres(rs.getString("nombres"));
+                usuario.setApellidoPaterno(rs.getString("apellido_paterno"));
+                usuario.setApellidoMaterno(rs.getString("apellido_materno"));
+                usuario.setUsuario(rs.getString("usuario"));
+                usuario.setIdRol(rs.getInt("id_rol"));
+                usuario.setNombreRol(rs.getString("nombre_rol"));
+                lista.add(usuario);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            System.out.println("na"+e.getMessage());
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return lista;
+    }
+
 }

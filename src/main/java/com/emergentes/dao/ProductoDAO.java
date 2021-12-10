@@ -9,4 +9,5 @@ public interface ProductoDAO {
     public void delete(String id) throws Exception;
     public Producto getById(String id) throws Exception;
     public List<Producto> getAll() throws Exception;
+    public List<Producto> getFilterNombre(String texto) throws Exception;
 }
