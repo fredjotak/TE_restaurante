@@ -468,7 +468,7 @@ td {
     margin: 5px;
 }
 
-.datos-mesa__datos button{
+.datos-mesa__datos button, .datos-mesa__datos a{
     padding: 10px;
     border-radius: 5px;
     background-color: #03a9f4;

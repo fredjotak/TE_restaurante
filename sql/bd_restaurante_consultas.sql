@@ -18,3 +18,7 @@ FROM detalle_servicio d JOIN producto p ON(d.id_producto = p.id_producto) WHERE 
 SELECT id_usuario, ci, nombres, apellido_paterno, apellido_materno, usuario, u.id_rol, r.nombre nombre_rol
 FROM usuario u LEFT JOIN rol r ON(u.id_rol=r.id_rol)
 WHERE ci LIKE '%45%';
+
+SELECT id_usuario, ci, nombres, apellido_paterno, apellido_materno, usuario, u.id_rol, r.nombre nombre_rol
+FROM usuario u LEFT JOIN rol r ON(u.id_rol=r.id_rol)
+WHERE ci LIKE '%45%' OR nombres LIKE '%45%';
