@@ -22,3 +22,10 @@ WHERE ci LIKE '%45%';
 SELECT id_usuario, ci, nombres, apellido_paterno, apellido_materno, usuario, u.id_rol, r.nombre nombre_rol
 FROM usuario u LEFT JOIN rol r ON(u.id_rol=r.id_rol)
 WHERE ci LIKE '%45%' OR nombres LIKE '%45%';
+
+-- CONSULTAR
+SELECT id_servicio_temporal, hora, s.id_producto, nombre, id_mesa, cantidad, comentario 
+FROM servicio_temporal s LEFT JOIN producto p ON(s.id_producto = p.id_producto)
+WHERE s.id_mesa = 7;
+
+-- INSERT INTO servicio_temporal(id_producto, id_mesa, cantidad, comentario) VALUES('COM-01006', 7, 3, '');
