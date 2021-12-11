@@ -52,6 +52,9 @@ public class ServicioControlador extends HttpServlet {
                 response.sendRedirect("ServicioControlador");
             } else if(action.equals("view")){
                 List<Servicio> listaServicios = dao.getAll();
+                for(Servicio ls: listaServicios){
+                    System.out.println(ls.toString());
+                }
                 request.setAttribute("listaServicios", listaServicios);
                 request.getRequestDispatcher("servicios.jsp").forward(request, response);
             }
