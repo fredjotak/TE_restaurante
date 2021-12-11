@@ -100,7 +100,7 @@ public class ServicioTemporalDAOimpl extends ConexionDB implements ServicioTempo
         List<ServicioTemporal> lista = new ArrayList<ServicioTemporal>();
         try {
             this.conectar();
-            String sql = "SELECT id_servicio_temporal, hora, s.id_producto, nombre, id_mesa, cantidad, comentario \n" +
+            String sql = "SELECT id_servicio_temporal, hora, s.id_producto, nombre, precio, id_mesa, cantidad, comentario \n" +
 "FROM servicio_temporal s LEFT JOIN producto p ON(s.id_producto = p.id_producto)";
             PreparedStatement ps = this.conn.prepareStatement(sql);
             
@@ -110,6 +110,7 @@ public class ServicioTemporalDAOimpl extends ConexionDB implements ServicioTempo
                 servicioTemporal.setId(rs.getInt("id_servicio_temporal"));
                 servicioTemporal.setIdProducto(rs.getString("id_producto"));
                 servicioTemporal.setNombreProducto(rs.getString("nombre"));
+                servicioTemporal.setPrecio(rs.getFloat("precio"));
                 servicioTemporal.setHora(rs.getString("hora"));
                 servicioTemporal.setIdMesa(rs.getInt("id_mesa"));
                 servicioTemporal.setCantidad(rs.getInt("cantidad"));
@@ -131,7 +132,7 @@ public class ServicioTemporalDAOimpl extends ConexionDB implements ServicioTempo
         List<ServicioTemporal> lista = new ArrayList<ServicioTemporal>();
         try {
             this.conectar();
-            String sql = "SELECT id_servicio_temporal, hora, s.id_producto, nombre, id_mesa, cantidad, comentario \n" +
+            String sql = "SELECT id_servicio_temporal, hora, s.id_producto, nombre, precio, id_mesa, cantidad, comentario \n" +
 "FROM servicio_temporal s LEFT JOIN producto p ON(s.id_producto = p.id_producto) WHERE s.id_mesa = ?";
             PreparedStatement ps = this.conn.prepareStatement(sql);
             ps.setInt(1, idMesa);
@@ -142,6 +143,7 @@ public class ServicioTemporalDAOimpl extends ConexionDB implements ServicioTempo
                 servicioTemporal.setId(rs.getInt("id_servicio_temporal"));
                 servicioTemporal.setIdProducto(rs.getString("id_producto"));
                 servicioTemporal.setNombreProducto(rs.getString("nombre"));
+                servicioTemporal.setPrecio(rs.getFloat("precio"));
                 servicioTemporal.setHora(rs.getString("hora"));
                 servicioTemporal.setIdMesa(rs.getInt("id_mesa"));
                 servicioTemporal.setCantidad(rs.getInt("cantidad"));
@@ -156,6 +158,23 @@ public class ServicioTemporalDAOimpl extends ConexionDB implements ServicioTempo
             this.desconectar();
         }
         return lista;
+    }
+
+    @Override
+    public void deleteByMesa(int idMesa) throws Exception {
+        try {
+            this.conectar();
+            String sql = "DELETE FROM servicio_temporal WHERE id_mesa = ?";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setInt(1, idMesa);
+            
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.desconectar();
+        }
     }
 
 }
