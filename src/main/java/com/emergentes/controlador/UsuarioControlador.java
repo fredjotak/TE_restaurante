@@ -37,7 +37,7 @@ public class UsuarioControlador extends HttpServlet {
             
             String action = (request.getParameter("action")!=null)? request.getParameter("action"): "view";
             System.out.println("opcion es "+ action);
-            if(action.equals("add")){
+            /*if(action.equals("add")){
                 request.setAttribute("usuario", usuario);
                 request.setAttribute("listaRol", listaRol);
                 request.getRequestDispatcher("frmUsuario.jsp").forward(request, response);
@@ -47,13 +47,16 @@ public class UsuarioControlador extends HttpServlet {
                 request.setAttribute("usuario", usuario);
                 request.setAttribute("listaRol", listaRol);
                 request.getRequestDispatcher("frmUsuario.jsp").forward(request, response);
-            } else if(action.equals("delete")){
+            } else*/ if(action.equals("delete")){
                 id = Integer.parseInt(request.getParameter("id"));
                 dao.delete(id);
-                response.sendRedirect("UsuarioControlador");
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"notificacion\": \"USUARIO ELIMINADO EXITOSAMENTE\"}");
+                //response.sendRedirect("UsuarioControlador");
             } else if(action.equals("view")){
-                List<Usuario> listaUsuarios = dao.getAll();
-                request.setAttribute("listaUsuarios", listaUsuarios);
+                //List<Usuario> listaUsuarios = dao.getAll();
+                //request.setAttribute("listaUsuarios", listaUsuarios);
                 request.getRequestDispatcher("usuarios.jsp").forward(request, response);
             } else if(action.equals("search")){
                 String variableBuscar = request.getParameter("v");
@@ -70,6 +73,13 @@ public class UsuarioControlador extends HttpServlet {
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
+            } else if(action.equals("get-by-id")){
+                id = Integer.parseInt(request.getParameter("id"));
+                usuario = dao.getById(id);
+                String json = new Gson().toJson(usuario);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } catch (Exception e) {
             System.out.println("Error GET Usuario: "+e.getMessage()+e.toString()+"____"+e.getCause()+"___"+e.getClass());
@@ -83,6 +93,7 @@ public class UsuarioControlador extends HttpServlet {
         Gson gson = new Gson();
         Usuario usuario = new Usuario();
         Properties properties = gson.fromJson(reader, Properties.class);
+        System.out.println("..."+properties);
         UsuarioDAO dao = new UsuarioDAOimpl();
         usuario.setId(Integer.parseInt(properties.getProperty("hdnId")));
         usuario.setCi(Integer.parseInt(properties.getProperty("nroCI")));

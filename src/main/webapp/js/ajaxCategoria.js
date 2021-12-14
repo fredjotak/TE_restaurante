@@ -19,6 +19,7 @@ const ajax = (options) => {
             error(`Error ${xhr.status}: ${message}`)
         }
     });  
+    console.log(xhr);
     xhr.open(method || 'GET',url);
     xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
     xhr.send(JSON.stringify(data));  
@@ -31,7 +32,7 @@ $inputform.addEventListener('keyup',(e) =>{
         a.removeChild(a.firstChild);
     }
     ajax({
-        url: `http://localhost:8085/TE_restaurante/CategoriaControlador?action=search&vc=${$inputform.value}`,
+        url: `CategoriaControlador?action=search&vc=${$inputform.value}`,
         exito:(res) => {
             console.log(res)
             res.forEach(el => {
@@ -55,9 +56,31 @@ $inputform.addEventListener('keyup',(e) =>{
 });
 
 d.addEventListener('DOMContentLoaded', (e)=>{
-    
+    actualizarCategorias();
+});
+
+function animacionIconos(){
+    const contAcciones = d.querySelectorAll('.iconos-tables');
+    contAcciones.forEach(elemento =>{
+        elemento.addEventListener('click', e =>{
+            console.log(elemento.className);
+            if(elemento.lastElementChild.className.match(/mostrar-edit-eli/i)){
+                console.log('yes');
+                elemento.lastElementChild.classList.remove('mostrar-edit-eli');
+            }
+            else{
+                contAcciones.forEach(elementos =>{
+                    elementos.lastElementChild.classList.remove('mostrar-edit-eli');
+                });
+                elemento.lastElementChild.classList.add('mostrar-edit-eli');
+            }
+        });
+    });
+}
+
+const actualizarCategorias = function(){
     ajax({
-        url: 'http://localhost:8085/TE_restaurante/CategoriaControlador?action=search&vc=',
+        url: 'CategoriaControlador?action=get-all',
         exito:(res) => {
             console.log(res)
             res.forEach(el => {
@@ -69,7 +92,6 @@ d.addEventListener('DOMContentLoaded', (e)=>{
                 let $clone = d.importNode($template,true);
                 $fragment.appendChild($clone);
             });
-            
             
             $table.querySelector("tbody").appendChild($fragment);
             setTimeout(animacionIconos ,100);
@@ -97,25 +119,5 @@ d.addEventListener('DOMContentLoaded', (e)=>{
             }
         });
     });
-});
-
-function animacionIconos(){
-    const contAcciones = d.querySelectorAll('.iconos-tables');
-    contAcciones.forEach(elemento =>{
-        elemento.addEventListener('click', e =>{
-            console.log(elemento.className);
-            if(elemento.lastElementChild.className.match(/mostrar-edit-eli/i)){
-                console.log('yes');
-                elemento.lastElementChild.classList.remove('mostrar-edit-eli');
-            }
-            else{
-                contAcciones.forEach(elementos =>{
-                    elementos.lastElementChild.classList.remove('mostrar-edit-eli');
-                });
-                elemento.lastElementChild.classList.add('mostrar-edit-eli');
-            }
-        });
-    });
+    $inputform.value = '';
 }
-
-

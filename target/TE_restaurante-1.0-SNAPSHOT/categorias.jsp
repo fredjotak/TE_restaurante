@@ -101,6 +101,10 @@
                 </td>
             </tr>
         </template>
+        <div id="notify" class="notify">
+            <h4>NOTIFICACIÓN</h4>
+            <p>Este es un texto</p>
+        </div>
         <script src="js/ajaxCategoria.js"></script>
     </body>
 </html>

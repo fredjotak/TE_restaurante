@@ -9,6 +9,7 @@ com\emergentes\controlador\UsuarioControlador.class
 com\emergentes\controlador\CategoriaControlador.class
 com\emergentes\dao\UsuarioDAOimpl.class
 com\emergentes\modelo\Usuario.class
+com\emergentes\controlador\RolControlador.class
 com\emergentes\dao\ProductoDAO.class
 com\emergentes\controlador\LoginControl.class
 com\emergentes\modelo\Categoria.class

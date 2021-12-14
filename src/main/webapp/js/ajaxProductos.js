@@ -31,7 +31,7 @@ $inputform.addEventListener('keyup',(e) =>{
         a.removeChild(a.firstChild);
     }
     ajax({
-        url: `http://localhost:8085/TE_restaurante/ProductoControlador?action=search&vp=${$inputform.value}`,
+        url: `ProductoControlador?action=search&vp=${$inputform.value}`,
         exito:(res) => {
             res.forEach(el => {
                 $template.querySelector(".cu-id").textContent = el.id;
@@ -55,7 +55,7 @@ $inputform.addEventListener('keyup',(e) =>{
 d.addEventListener('DOMContentLoaded', (e)=>{
     
     ajax({
-        url: 'http://localhost:8085/TE_restaurante/ProductoControlador?action=search&vp=',
+        url: 'ProductoControlador?action=search&vp=',
         exito:(res) => {
             console.log(res)
             res.forEach(el => {
@@ -115,4 +115,3 @@ function animacionIconos(){
         });
     });
 }
-

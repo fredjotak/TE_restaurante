@@ -7,14 +7,23 @@ const $table = d.querySelector('.crud-table--usuarios'),
       $formCrud = d.querySelector(".form_edit-nuevo"),
       $modalCrud = d.querySelector(".modal"),
       $cerrarform = $formCrud.elements["cerrarForm"],
-      $enviarform = $formCrud.elements["enviarForm"];
+      $enviarform = $formCrud.elements["enviarForm"],
+      $selectRolform = $formCrud.elements["cbRol"];
       
       //console.log($enviarform, '\n', $inputform);
 d.querySelector(".abrirform").addEventListener('click', ()=> {$modalCrud.classList.add("modal--mostrar");})
 
 $cerrarform.addEventListener('click', e => {
     $modalCrud.classList.remove("modal--mostrar");
+    $formCrud.hdnId.value = "";
+    $formCrud.txtNombres.value = "";
+    $formCrud.txtApellidoPaterno.value = "";
+    $formCrud.txtApellidoMaterno.value = "";
+    $formCrud.nroCI.value = "";
+    $formCrud.cbRol.value = "";
+    readUsuario();
 });
+
 
 d.querySelectorAll(".cu-edit").forEach(el => {
     el.addEventListener('click', e => {
@@ -40,14 +49,14 @@ const readUsuario = function(){
                 $template.querySelector(".cu-usuario").textContent = el.usuario;
                 $template.querySelector(".cu-rol").textContent = el.nombreRol;
                 $template.querySelector(".cu-edit").setAttribute("data-id", `${el.id}`);
-                $template.querySelector(".cu-delete").href = `UsuarioControlador?action=delete&id=${el.id}`;
+                $template.querySelector(".cu-delete").setAttribute("data-id", `${el.id}`); //.href = `UsuarioControlador?action=delete&id=${el.id}`;
                 let $clone = d.importNode($template,true);
                 $fragment.appendChild($clone);
             });
             
             
             $table.querySelector("tbody").appendChild($fragment);
-            setTimeout(animacionIconos ,100);
+            /*setTimeout(animacionIconos ,100);*/
         },
         error:(err) => {
             $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);
@@ -80,8 +89,7 @@ const ajax = (options) => {
 
 $formCrud.addEventListener('submit', e => {
     e.preventDefault();
-    if($formCrud.hdnId.value== '0'){
-        ajax({
+    ajax({
             method: "POST",
             url: `UsuarioControlador`,
             exito: (res) => { 
@@ -104,21 +112,34 @@ $formCrud.addEventListener('submit', e => {
                 cbRol: $formCrud.cbRol.value
             }
         });
-        
+        readUsuario();
         /*setTimeout(()=>{$modalCrud.classList.remove("modal--mostrar");},500);*/
-    }else{
-        //Update
-        console.log("no");
-    }
 });
 
 $inputform.addEventListener('keyup',(e) =>{
     readUsuario();
 });
 
+function enviar(){
+    ajax({
+        url: 'RolControlador?action=get-all',
+        exito:(res) => {
+            let i=0;
+            res.forEach(el => {
+                $selectRolform.options[i] = new Option(`${el.nombre}`,`${el.id}`);
+                i++;
+            });
+            
+        },
+        error: (err) => {console.log(err)}
+    });
+}
+
 d.addEventListener('DOMContentLoaded', (e)=>{
     
     readUsuario();
+    
+    enviar();
     
     const item = d.querySelectorAll(".lista__item");
 
@@ -141,13 +162,70 @@ d.addEventListener('DOMContentLoaded', (e)=>{
 });
 
 d.addEventListener('click', e => {
+    if(e.target.matches('.iconos-tables') || e.target.matches('.iconos-tables :first-child') || e.target.matches('.icono-tables :nth-child(2)')){
+        e.path.forEach(el => {
+            if(el.className == "iconos-tables"){
+                if(el.lastElementChild.className.match(/mostrar-edit-eli/i)){
+                    el.lastElementChild.classList.remove('mostrar-edit-eli');
+                }
+                else{
+                    d.querySelectorAll('.iconos-tables').forEach(elementos =>{
+                        elementos.lastElementChild.classList.remove('mostrar-edit-eli');
+                    });
+                    el.lastElementChild.classList.add('mostrar-edit-eli');
+                }
+            }
+        });
+    } 
+    
+    if(e.target.matches('.cont-edit') || e.target.matches('.cont-edit *')){
+        /*e.target.getElementById("crud-titulo").innerHTML = "Editar Usuario"
+        $modalCrud.classList.add("modal--mostrar");*/
+        
+        $modalCrud.querySelector("#crud-titulo").innerHTML = "Editar Usuario";
+        $modalCrud.querySelector("#crud-boton-enviar").innerHTML = "Actualizar";
+        e.path.forEach(el =>  {
+            if(el.className == 'column-datos'){
+                $formCrud.hdnId.value = el.querySelector(".cu-id").innerHTML;
+                $formCrud.txtNombres.value = el.querySelector(".cu-nombre").innerHTML;
+                $formCrud.txtApellidoPaterno.value = el.querySelector(".cu-paterno").innerHTML;
+                $formCrud.txtApellidoMaterno.value = el.querySelector(".cu-materno").innerHTML;
+                $formCrud.nroCI.value = el.querySelector(".cu-ci").innerHTML;
+                $formCrud.cbRol.value = el.querySelector(".cu-rol").innerHTML;
+            }
+        })
+        
+        $modalCrud.classList.add("modal--mostrar");
+    } else if (e.target.matches('.cont-eli') || e.target.matches('.cont-eli *')){
+        e.path.forEach(el =>  {
+            if(el.className == 'column-datos'){ 
+                // Eliminar usuario
+                console.log('click en '+ el.querySelector(".cu-nombre").innerHTML+", id"+el.querySelector(".cu-id").innerHTML);
+                ajax({
+                    url: `UsuarioControlador?action=delete&id=`+el.querySelector(".cu-id").innerHTML,
+                    method: 'GET',
+                    exito:(res) => {
+                        activarAlerta(res.notificacion);
+                        readUsuario();
+                    },
+                    error:(err) => {
+                        $table.insertAdjacentHTML("afterend",`<p><b>${err}</b></p>`);
+                    },
+                    data: {}
+                });
+            }
+        });
+    }
+});
+
+/*d.addEventListener('click', e => {
     console.log(e.target);
    if(e.target.matches('.iconos-tables') || e.target.matches('.iconos-tables *')){
        console.log(e.target);
    } 
-});
+});*/
 
-function animacionIconos(){
+/*function animacionIconos(){
     const contAcciones = d.querySelectorAll('.iconos-tables');
     contAcciones.forEach(elemento =>{
         elemento.addEventListener('click', e =>{
@@ -163,7 +241,7 @@ function animacionIconos(){
             }
         });
     });
-}
+}*/
 
 const as = document.querySelector("#notify");
 function activarAlerta(mensaje){
@@ -171,14 +249,4 @@ function activarAlerta(mensaje){
     t.innerText = mensaje;
     as.classList.add("mostrar");
     setTimeout(function(){ as.classList.remove("mostrar"); }, 2000);
-}
-
-function enviar(){
-    ajax({
-        url: 'RolControlador?action=get-all',
-        exito:(res) => {
-            console.log(res);
-        },
-        error: (err) => {console.log(err)},
-    });
 }

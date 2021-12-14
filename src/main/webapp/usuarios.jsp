@@ -107,21 +107,21 @@
                             <div class="rows">
                                 <label for="cbRol">Rol: </label>
                                 <select name="cbRol">
-                                    <option value="1">-- Seleccione rol --</option>                                  
+                                    <option value="0">-- Seleccione rol --</option>                           
                                 </select>
                             </div>
                             <div class="rows">
                                 <input type="button" name="cerrarForm" class="botones botton--cerrar" value="Cerrar">
                             </div>
                             <div class="rows">
-                                <input class="botones" name="enviarForm" type="submit" value='Registrar'>
+                                <input class="botones" name="enviarForm" type="submit" id="crud-boton-enviar" value='Registrar'>
                             </div>
                     </form>
                 </div>
             </div>
         </div>
         <template id="crud-template">
-            <tr>
+            <tr class="column-datos">
                 <td class="cu-id"></td>
                 <td class="cu-ci"></td>
                 <td class="cu-nombre"></td>
@@ -137,11 +137,11 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z"></path></svg>        
                         <div class="acciones-edit-eli">
                             <ul>
-                                <li class="accion_indep">
+                                <li class="accion_indep cont-edit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m7 17.013 4.413-.015 9.632-9.54c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.756-.756-2.075-.752-2.825-.003L7 12.583v4.43zM18.045 4.458l1.589 1.583-1.597 1.582-1.586-1.585 1.594-1.58zM9 13.417l6.03-5.973 1.586 1.586-6.029 5.971L9 15.006v-1.589z"></path><path d="M5 21h14c1.103 0 2-.897 2-2v-8.668l-2 2V19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2z"></path></svg>
                                     <a class="cu-edit" data-id="0">Editar</a>
                                 </li>
-                                <li class="accion_indep">
+                                <li class="accion_indep cont-eli">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 7H5v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7H6zm4 12H8v-9h2v9zm6 0h-2v-9h2v9zm.618-15L15 2H9L7.382 4H3v2h18V4z"></path></svg>
                                     <a class="cu-delete">Eliminar</a>
                                 </li>
