@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.BufferedReader;
+import java.util.Properties;
 
 @WebServlet(name = "UsuarioControlador", urlPatterns = {"/UsuarioControlador"})
 public class UsuarioControlador extends HttpServlet {
@@ -77,36 +79,43 @@ public class UsuarioControlador extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Logueado log = new Logueado(request, response);
-        UsuarioDAO dao = new UsuarioDAOimpl();
-        int id = Integer.parseInt(request.getParameter("hdnId"));
-        int ci = Integer.parseInt(request.getParameter("nroCI"));
-        String nombres = request.getParameter("txtNombres");
-        String apellidoPaterno = request.getParameter("txtApellidoPaterno");
-        String apellidoMaterno = request.getParameter("txtApellidoMaterno");
-        int idRol = Integer.parseInt(request.getParameter("cbRol"));
-        
+        BufferedReader reader = request.getReader(); //Se toma la fuente de datos de la solicitud
+        Gson gson = new Gson();
         Usuario usuario = new Usuario();
-        usuario.setId(id);
-        usuario.setCi(ci);
-        usuario.setNombres(nombres);
-        usuario.setApellidoPaterno(apellidoPaterno);
-        usuario.setApellidoMaterno(apellidoMaterno);
-        usuario.setIdRol(idRol);
+        Properties properties = gson.fromJson(reader, Properties.class);
+        UsuarioDAO dao = new UsuarioDAOimpl();
+        usuario.setId(Integer.parseInt(properties.getProperty("hdnId")));
+        usuario.setCi(Integer.parseInt(properties.getProperty("nroCI")));
+        usuario.setNombres(properties.getProperty("txtNombres"));
+        usuario.setApellidoPaterno(properties.getProperty("txtApellidoPaterno"));
+        usuario.setApellidoMaterno(properties.getProperty("txtApellidoMaterno"));
+        usuario.setIdRol(Integer.parseInt(properties.getProperty("cbRol")));
         
-        if(id==0){ // Nuevo Usuario
+        if(usuario.getId()==0){ // Nuevo Usuario
             try {
-            dao.insert(usuario);
+                dao.insert(usuario);
+                /*
+                String json = new Gson().toJson(properties);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+                */
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"notificacion\": \"NUEVO USUARIO REGISTRADO EXITOSAMENTE\"}");
             } catch (Exception ex) {
                 System.out.println("Error al insertar en Usuario: "+ ex.getMessage());
             }
         } else { // Edición de Usuario
             try {
-            dao.update(usuario);
+                dao.update(usuario);
+
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"notificacion\": \"USUARIO ACTUALIZADO EXITOSAMENTE\"}");
             } catch (Exception ex) {
                 System.out.println("Error al actualizar en Usuario: "+ ex.getMessage());
             }
         }
-        response.sendRedirect("UsuarioControlador");
     }
 }

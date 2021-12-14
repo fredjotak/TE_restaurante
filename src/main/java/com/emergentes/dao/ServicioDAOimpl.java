@@ -105,7 +105,7 @@ public class ServicioDAOimpl extends ConexionDB implements ServicioDAO{
             PreparedStatement ps = this.conn.prepareStatement(sql);
             
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 Servicio servicio = new Servicio();
                 servicio.setId(rs.getInt("id_servicio"));
                 servicio.setFecha(rs.getDate("fecha"));

@@ -537,4 +537,62 @@ select{
     background-color: #e1e1e1;
     color: black;
     border: 1px solid #757575;
+    text-align: center;
+}
+
+.modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000099;
+    z-index: 1000;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+.modal--mostrar{
+    display: block;
+}
+
+.form-contenedor{
+    width: 40%;
+    height: fit-content;
+    margin: 100px auto;
+    background-color: #f8f7f7;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.form-titulo{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+.form-contenido{
+    padding: 10px
+}
+
+.form-contenido .form_edit-nuevo{
+    width: 100%;
+    grid-template-columns: repeat(4,108px);
+}
+
+.notify {
+    width: 250px;
+    border-radius: 5px;
+    padding: 10px 15px;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    background: #61b965;
+    color: white;
+    z-index: 9999;
+    transition: linear .5s;
+    display: none;
+}
+.mostrar {
+    display: block;
 }

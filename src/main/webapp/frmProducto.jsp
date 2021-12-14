@@ -88,6 +88,6 @@
                 </div>
             </article>
         </main>
-        <script src="js/index.js"></script>
+        <!--<script src="js/index.js"></script>-->
     </body>
 </html>
