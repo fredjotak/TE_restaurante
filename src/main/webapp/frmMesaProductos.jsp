@@ -53,23 +53,35 @@
                                 </div>
                             </div>
                             <div class="opciones-control-mesas">
-                                <button>Cuenta Individual</button>
+                                <form action="MesaControladorDisponibles" method="POST">
+                                    <input type="hidden" name="hdnOption" value="confirm"> 
+                                    <input type="submit" value="Confirmar compra">
+                                    <input type="hidden" name="hdnIdMesa" value="${mesa.id}">
+                                </form>
                                 <a href="MesaControladorDisponibles?action=cancel&id=${mesa.id}" class="botones">Anular Pedido</a>
                             </div>
                         </div>
                         <div class="cuerpo-article">
                             <div class="buscar">
-                                <form action="">
-                                    <label for="cantidad">Cant</label>
-                                    <input type="text" name="cantidad" id="cantidad">
-                                    <label for="codigo">Codigo</label>
-                                    <input type="text" name="codigo" id="codigo">
+                                <form action="MesaControladorDisponibles" method="POST">
+                                    <input type="hidden" name="hdnIdMesa" value="${mesa.id}">
+                                    <input type="hidden" name="hdnOption" value="add">
+                                    <label for="cantidad">Cantidad</label>
+                                    <input type="number" name="nroCantidad" id="cantidad" min="0" step="1" required>
+                                    <label for="codigo">Producto</label>
+                                    <select name="cbIdProducto">
+                                        <option>-- Seleccione Producto --</option>
+                                        <c:forEach var="item" items="${listaProductos}">
+                                            <option value="${item.id}">${item.nombre}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <!--<input type="text" name="codigo" id="codigo">-->
                                     <div class="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z">
                                             </path>
                                         </svg>
-                                        <input type="submit" value="Buscar">
+                                        <input type="submit" value="Añadir">
                                     </div>
                                 </form>
                             </div>
@@ -79,7 +91,7 @@
                                     <th>CANT</th>
                                     <th>DESCRIP</th>
                                     <th>PRECIO Bs.</th>
-                                    <th>DESC %</th>
+                                    <th>COMENTARIO</th>
                                     <th>Subtotal</th>
                                 </tr>
                                 <c:forEach var="item" items="${listaTemporal}">
@@ -87,7 +99,10 @@
                                         <td>${item.idProducto}</td>
                                         <td>${item.cantidad}</td>
                                         <td>${item.nombreProducto}</td>
+                                        <td>${item.precio} Bs.</td>
                                         <td>${item.comentario}</td>
+                                        <td>${item.cantidad*item.precio}</td>
+                                        <td><a href="">Quitar</a></td>
                                     </tr>
                                 </c:forEach>
                                     <!--<td>1000</td>
@@ -116,7 +131,7 @@
                                 <tr>
                                     <td colspan="4"></td>
                                     <td><b>Total.</b></td>
-                                    <td>42.40</td>
+                                    <td>${total} Bs.</td>
                                 </tr>
                             </table>
                         </div>

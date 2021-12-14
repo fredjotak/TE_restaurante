@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\src\main\java\com\emergentes\dao\ProductoDAO.java
 C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\src\main\java\com\emergentes\controlador\CategoriaControlador.java
 C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\src\main\java\com\emergentes\utiles\Logueado.java
@@ -35,3 +36,42 @@ C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\s
 C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\src\main\java\com\emergentes\dao\ServicioTemporalDAO.java
 C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\src\main\java\com\emergentes\controlador\MesaControladorDisponibles.java
 C:\Users\Cristian_Mamani\Downloads\Nueva carpeta\TE_restaurante\TE_restaurante\src\main\java\com\emergentes\modelo\Usuario.java
+=======
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\RolDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Producto.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\DetalleServicio.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Rol.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ProductoDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\DetalleServicioDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Mesa.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\UsuarioDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\CategoriaControlador.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\CategoriaDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\ServicioTemporal.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\LoginControl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\ServicioControlador.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ServicioTemporalDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\UsuarioDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Comentario.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\MesaControladorDisponibles.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ServicioTemporalDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\utiles\ConexionDB.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\MesaDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Categoria.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Usuario.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\DetalleServicioDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ServicioDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\UsuarioControlador.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\MesaDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\LogOutControl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\ProductoControlador.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\controlador\MesaControlador.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\RolDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ServicioDAOimpl.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ComentarioDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\ProductoDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\modelo\Servicio.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\utiles\Validate.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\dao\CategoriaDAO.java
+C:\xampp\htdocs\2021_2\materias\tem_742\semana_16\TE_restaurante\src\main\java\com\emergentes\utiles\Logueado.java
+>>>>>>> 7493e393a7dd2f3b45a0fade7363aaab52c51e6f

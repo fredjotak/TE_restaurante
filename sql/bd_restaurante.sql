@@ -129,8 +129,13 @@ CREATE OR REPLACE TRIGGER dis_actualiza_total
 	AFTER INSERT ON detalle_servicio
 	FOR EACH ROW
 BEGIN
+<<<<<<< HEAD
 	UPDATE servicio SET total = total + (SELECT SUM(subtotal) FROM detalle_servicio WHERE id_detalle_servicio = NEW.id_detalle_servicio) WHERE id_servicio = NEW.id_servicio;
 	-- UPDATE servicio SET total = (SELECT SUM(subtotal) FROM detalle_servicio WHERE id_servicio = NEW.id_servicio);
+=======
+	-- UPDATE servicio SET total = total + (SELECT SUM(subtotal) FROM detalle_servicio WHERE id_detalle_servicio = NEW.id_detalle_servicio);
+	UPDATE servicio SET total = (SELECT SUM(subtotal) FROM detalle_servicio WHERE id_servicio = NEW.id_servicio);
+>>>>>>> 7493e393a7dd2f3b45a0fade7363aaab52c51e6f
 END //
 DELIMITER ;
 

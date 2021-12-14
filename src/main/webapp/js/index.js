@@ -175,7 +175,7 @@ function activarAlerta(mensaje){
 
 function enviar(){
     ajax({
-        url: 'RolControlador?action=listar',
+        url: 'RolControlador?action=get-all',
         exito:(res) => {
             console.log(res);
         },

@@ -5,9 +5,18 @@ public class ServicioTemporal {
     private String hora;
     private String idProducto;
     private String nombreProducto;
+    private float precio;
     private int idMesa;
     private int cantidad;
     private String comentario;
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
 
     public int getId() {
         return id;
@@ -67,6 +76,8 @@ public class ServicioTemporal {
 
     @Override
     public String toString() {
-        return "ServicioTemporal{" + "id=" + id + ", hora=" + hora + ", idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", idMesa=" + idMesa + ", cantidad=" + cantidad + ", comentario=" + comentario + '}';
+        return "ServicioTemporal{" + "id=" + id + ", hora=" + hora + ", idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", precio=" + precio + ", idMesa=" + idMesa + ", cantidad=" + cantidad + ", comentario=" + comentario + '}';
     }
+
+    
 }

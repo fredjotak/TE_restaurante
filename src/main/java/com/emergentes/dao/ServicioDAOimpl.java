@@ -10,7 +10,8 @@ import java.util.List;
 public class ServicioDAOimpl extends ConexionDB implements ServicioDAO{
 
     @Override
-    public void insert(Servicio servicio) throws Exception {
+    public int insert(Servicio servicio) throws Exception {
+        int idProd = 0;
         try {
             this.conectar();
             String sql = "INSERT INTO servicio(id_mesa, id_encargado, cancelada) VALUES(?, ?, ?)";
@@ -19,13 +20,36 @@ public class ServicioDAOimpl extends ConexionDB implements ServicioDAO{
             ps.setInt(2, servicio.getIdEncargado());
             ps.setInt(3, servicio.isCancelada()? 1: 0);
             
-            ps.executeUpdate();
+            int ll = ps.executeUpdate();
+            System.out.println(">>>>>>>> "+ll);
+            if(ll!=0){
+                ps.close();
+                /*ResultSet rs = ps.getGeneratedKeys();
+                System.out.println("nada");
+                if(rs.next()){
+                    System.out.println("Id insertado es: "+rs.getInt(1));
+                    idProd = rs.getInt(1);
+                }*/
+                try {
+                    String sql2 = "SELECT MAX(id_servicio) id FROM servicio";
+                    PreparedStatement ps2 = this.conn.prepareStatement(sql2);
+                    ResultSet rs = ps2.executeQuery();
+                    if(rs.next()){
+                        idProd = rs.getInt("id");
+                    }
+                } catch(Exception e){
+                    
+                }
+            } else {
+                System.out.println("paso alfgo");
+            }
             ps.close();
         } catch (Exception e) {
             throw e;
         } finally {
             this.desconectar();
         }
+        return idProd;
     }
 
     @Override
